@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- Database connection settings
+             Note: all databases configured in server.properties are automatically published to
+             isomorphic/jdbc under their respective names.  The sql.defaultDatabase is
+             published as isomorphic/jdbc/defaultDatabase.  This is done in order to enable the
+             samples to use an embedded hsqldb without having to start an hsqldb server on a
+             separate port.
+
+             You can, of course, configure this however you like in your application.
+        -->
+        <property name="connection.datasource">isomorphic/jdbc/defaultDatabase</property>
+
+        <!-- disable native hibernate connection pooling: it's not recommended for production
+             use and can't handle connection re-establishment.  The recommended approach is
+             to obtain database connections from the container and have the container manage
+             the pool
+        -->        
+        <property name="connection.pool_size">0</property>
+
+        <!-- SQL dialect -->
+        <!-- rely on autodetect: hibernate specifies this as best practice
+        <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+        -->
+
+        <!-- Release database connections when session are closed.  Otherwise, if the DB
+             agressively cuts connections, we could end up trying to use a broken connection.
+        -->
+        <property name="hibernate.connection.release_mode">on_close</property>
+
+        <!-- don't use a data cache -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+        <!-- Pretty-print logged sql -->
+        <property name="format_sql">true</property>
+
+        <!-- Update database schema on startup -->
+        <property name="hbm2ddl.auto">update</property>
+
+    </session-factory>
+
+</hibernate-configuration>
